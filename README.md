@@ -1,1 +1,885 @@
-# REPORTS-App
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-key="appTitle">REPORTS</title>
+    <!-- تحميل Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* الخط الافتراضي */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* خلفية رمادية فاتحة */
+            transition: background-color 0.5s ease; /* انتقال سلس للخلفية */
+        }
+        /* وضع الطوارئ */
+        body.emergency-mode {
+            background-color: #fee2e2; /* أحمر فاتح جداً للطوارئ */
+        }
+        body.emergency-mode .container {
+            border: 2px solid #ef4444; /* حدود حمراء */
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2); /* ظل أحمر */
+        }
+        body.emergency-mode .app-header .title,
+        body.emergency-mode label,
+        body.emergency-mode .input-field,
+        body.emergency-mode .btn {
+            color: #b91c1c; /* نص أحمر داكن */
+        }
+        body.emergency-mode .input-field {
+            border-color: #ef4444; /* حدود حمراء */
+        }
+        body.emergency-mode .btn-primary {
+            background-image: linear-gradient(to right, #ef4444 0%, #dc2626 50%, #ef4444 100%); /* تدرج أحمر */
+        }
+        body.emergency-mode .btn-secondary {
+            background-color: #b91c1c; /* أحمر داكن */
+        }
+        body.emergency-mode .btn-secondary:hover {
+            background-color: #991b1b; /* أحمر أغمق */
+        }
+        body.emergency-mode .favorite-site-tag {
+            background-color: #fca5a5; /* أحمر فاتح */
+            color: #b91c1c; /* أحمر داكن */
+        }
+        body.emergency-mode .favorite-site-tag:hover {
+            background-color: #f87171; /* أحمر أغمق */
+        }
+        body.emergency-mode .message-box {
+            background-color: #ef4444; /* أحمر لرسائل الطوارئ */
+        }
+
+
+        /* حاوية التطبيق الرئيسية */
+        .container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            background-color: #ffffff;
+            border-radius: 1rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+            transition: all 0.5s ease; /* انتقال سلس للحدود والظل */
+        }
+        /* تنسيق تسميات الإدخال */
+        .input-group label {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+            color: #334155; /* نص أغمق للتسميات */
+        }
+        /* تنسيق حقول الإدخال والنصوص */
+        .input-field {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #cbd5e1; /* حدود رمادية فاتحة */
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #475569; /* نص رمادي متوسط */
+            transition: all 0.3s ease; /* انتقال سلس للحقول */
+        }
+        /* تنسيق الأزرار العامة */
+        .btn {
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease; /* انتقال سلس عند التحويم */
+            font-size: 1.125rem; /* خط أكبر للأزرار */
+        }
+        /* تنسيق الزر الأساسي (الإرسال) */
+        .btn-primary {
+            /* إضافة تدرج لوني وتأثير الانزلاق */
+            background-image: linear-gradient(to right, #22c55e 0%, #16a34a 50%, #22c55e 100%);
+            background-size: 200% auto; /* ضعف الحجم الأصلي للسماح بالانزلاق */
+            color: white;
+            transition: background-position 0.5s ease; /* انتقال سلس لموضع الخلفية */
+        }
+        .btn-primary:hover {
+            background-position: -100% 0; /* تحريك الخلفية لليمين (لليسار في RTL) */
+        }
+        /* تنسيق الزر الثانوي (التقاط الصورة) */
+        .btn-secondary {
+            background-color: #64748b; /* رمادي للزر الثانوي */
+            color: white;
+        }
+        .btn-secondary:hover {
+            background-color: #475569; /* رمادي أغمق عند التحويم */
+        }
+        /* تنسيق بطاقات التقرير المعروضة */
+        .report-card {
+            background-color: #f8fafc; /* أزرق رمادي فاتح جداً لبطاقات التقرير */
+            border: 1px solid #e2e8f0;
+            border-radius: 0.75rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* ظل خفيف */
+        }
+        /* تنسيق الصور داخل بطاقات التقرير */
+        .report-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin-top: 0.75rem;
+        }
+        /* تنسيق صندوق الرسائل (للتأكيد/الخطأ) */
+        .message-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #22c55e; /* أخضر افتراضي للنجاح */
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            z-index: 1000; /* لضمان ظهوره فوق العناصر الأخرى */
+            text-align: center;
+            font-size: 1.25rem;
+            display: none; /* مخفي افتراضياً */
+        }
+        /* تنسيق زر سلة المهملات للصورة */
+        .delete-image-btn {
+            background-color: #ef4444; /* أحمر */
+            color: white;
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex; /* لترتيب الأيقونة والنص */
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem; /* خط أصغر */
+            line-height: 1; /* لضمان محاذاة الأيقونة والنص بشكل جيد */
+            margin-top: 0.5rem; /* مسافة أعلى الزر */
+            width: fit-content; /* حجم الزر حسب المحتوى */
+        }
+        .delete-image-btn:hover {
+            background-color: #dc2626; /* أحمر أغمق عند التحويم */
+        }
+        .delete-image-btn svg {
+            width: 1rem; /* حجم أيقونة سلة المهملات */
+            height: 1rem;
+            margin-left: 0.25rem; /* مسافة بين النص والأيقونة */
+        }
+        /* تنسيق رأس التطبيق مع الشعار والعنوان */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem; /* تقليل المسافة بعد العنوان الرئيسي */
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0; /* خط فاصل */
+            flex-wrap: wrap; /* للسماح بالعناصر بالانتقال إلى سطر جديد على الشاشات الصغيرة */
+        }
+        .app-header .logo { /* هذا النمط لم يعد مستخدمًا ولكن تم الاحتفاظ به في حالة إعادة إضافة الشعار */
+            max-height: 60px; /* حجم الشعار */
+            width: auto;
+            border-radius: 0.5rem; /* حواف دائرية للشعار */
+            order: 2; /* ترتيب الشعار ليكون على اليمين في التخطيط RTL */
+            margin-right: 0;
+            margin-left: auto; /* دفع الشعار إلى أقصى اليمين */
+        }
+        .app-header .title-container {
+            flex-grow: 1; /* للسماح للحاوية بأخذ المساحة المتاحة */
+            text-align: center; /* محاذاة العنوان والنص الفرعي في المنتصف */
+            order: 1; /* ترتيب العنوان ليكون أولاً */
+            width: 100%; /* لضمان أن يأخذ العنوان سطرًا كاملاً على الشاشات الصغيرة */
+        }
+        .app-header .title {
+            font-size: 2.25rem; /* حجم خط أكبر للعنوان */
+            font-weight: bold;
+            color: #1a202c; /* لون داكن للعنوان */
+            margin-bottom: 0.25rem; /* مسافة صغيرة بين العنوان والنص الفرعي */
+        }
+        .app-header .copyright-text {
+            font-size: 0.75rem; /* حجم خط صغير جداً */
+            color: #64748b; /* لون رمادي فاتح للنص */
+            display: block; /* لضمان أن يكون النص في سطر خاص به */
+            margin-top: 0.25rem; /* مسافة صغيرة أعلى النص */
+        }
+
+        /* تعديلات على الشاشات الصغيرة */
+        @media (max-width: 640px) {
+            .app-header {
+                flex-direction: column; /* ترتيب عمودي على الشاشات الصغيرة */
+                align-items: center; /* محاذاة العناصر في المنتصف */
+                text-align: center;
+            }
+            .app-header .logo {
+                order: 1; /* الشعار أولاً */
+                margin-left: 0;
+                margin-right: 0;
+                margin-bottom: 1rem; /* مسافة تحت الشعار */
+            }
+            .app-header .title-container {
+                order: 2; /* العنوان ثانياً */
+                width: auto; /* السماح للحاوية بتحديد عرضها تلقائيًا */
+            }
+            .app-header .title {
+                font-size: 2rem; /* تقليل حجم الخط على الشاشات الصغيرة */
+            }
+        }
+
+        /* تنسيق المفضلة */
+        .favorite-site-tag {
+            background-color: #e0e7ff; /* لون خلفية خفيف */
+            color: #4338ca; /* لون نص أزرق داكن */
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            white-space: nowrap; /* منع النص من الالتفاف */
+        }
+        .favorite-site-tag:hover {
+            background-color: #c7d2fe; /* لون أغمق عند التحويم */
+        }
+        .favorite-sites-container {
+            display: flex;
+            flex-wrap: wrap; /* للسماح بالعناصر بالانتقال إلى سطر جديد */
+            gap: 0.5rem; /* مسافة بين العناصر */
+            margin-bottom: 1rem; /* مسافة تحت المفضلة */
+        }
+        /* Language selector styling */
+        .language-selector {
+            margin-left: 1rem; /* Space from logo/title */
+            padding: 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #cbd5e1;
+            background-color: #f8fafc;
+            color: #334155;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        @media (max-width: 640px) {
+            .language-selector {
+                margin-top: 1rem; /* Space above selector on small screens */
+                margin-left: 0;
+            }
+        }
+        /* Enhanced select styling */
+        .input-field.select-enhanced {
+            appearance: none; /* Remove default browser arrow */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E"); /* Custom SVG arrow */
+            background-repeat: no-repeat;
+            background-position: left 0.75rem center; /* Position arrow on the left for RTL */
+            background-size: 1.5em 1.5em; /* Size of the arrow */
+            padding-left: 2.5rem; /* Space for the arrow */
+            padding-right: 0.75rem; /* Keep original right padding */
+        }
+        html[dir="ltr"] .input-field.select-enhanced {
+            background-position: right 0.75rem center; /* Position arrow on the right for LTR */
+            padding-right: 2.5rem; /* Space for the arrow */
+            padding-left: 0.75rem; /* Keep original left padding */
+        }
+    </style>
+</head>
+<body class="p-4">
+    <div class="container">
+        <!-- رأس التطبيق مع الشعار والعنوان ومحدد اللغة -->
+        <div class="app-header">
+            <div class="title-container">
+                <h1 class="title" data-key="appTitle">REPORTS</h1>
+                <small class="copyright-text">MR.MSTFA</small>
+            </div>
+            <!-- محدد اللغة -->
+            <select id="languageSelector" class="language-selector">
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+            </select>
+        </div>
+
+        <!-- قسم معلومات البلاغ (التاريخ والوقت يدوياً) -->
+        <div class="mb-6 p-4 bg-blue-50 rounded-lg shadow-sm">
+            <div class="mb-4">
+                <label for="faultType" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelFaultType">
+                    نوع العطل:
+                </label>
+                <select id="faultType" class="input-field select-enhanced"> <!-- Added select-enhanced class -->
+                    <option value="" data-key="selectFaultTypePlaceholder">اختر نوع العطل</option>
+                    <option value="بلاغ عن عطل في الإضاءة" data-key="faultTypeLighting">بلاغ عن عطل في الإضاءة</option>
+                    <option value="بلاغ عن خلل في المكيف" data-key="faultTypeHVAC">بلاغ عن خلل في المكيف</option>
+                    <option value="تنظيف وصيانة دورات المياه" data-key="faultTypeCleaning">تنظيف وصيانة دورات المياه</option>
+                    <option value="طلب إصلاح أو استبدال كراسي" data-key="faultTypeChairs">طلب إصلاح أو استبدال كراسي</option>
+                    <option value="أعمال زراعية وصيانة المسطحات الخضراء" data-key="faultTypeGardening">أعمال زراعية وصيانة المسطحات الخضراء</option>
+                    <option value="مكافحة الحشرات ورش المبيدات" data-key="faultTypePestControl">مكافحة الحشرات ورش المبيدات</option>
+                    <option value="emergency" data-key="faultTypeEmergency">بلاغ طارئ</option>
+                    <option value="other" data-key="faultTypeOther">بلاغ آخر</option>
+                </select>
+            </div>
+            <!-- مربع نص يظهر عند اختيار "بلاغ آخر" -->
+            <div id="otherFaultTypeContainer" class="mb-4 hidden">
+                <label for="otherFaultType" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelOtherFaultType">
+                    نوع العطل الآخر:
+                </label>
+                <input type="text" id="otherFaultType" class="input-field" placeholder="اكتب نوع العطل" data-key="placeholderOtherFaultType">
+            </div>
+
+            <div class="mb-4">
+                <label for="reportDate" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelDate">
+                    التاريخ:
+                </label>
+                <input type="date" id="reportDate" class="input-field" required>
+            </div>
+            <div>
+                <label for="reportTime" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelTime">
+                    الوقت:
+                </label>
+                <input type="time" id="reportTime" class="input-field" required>
+            </div>
+        </div>
+
+        <!-- قسم التقاط الصورة -->
+        <div class="mb-6">
+            <label for="imageUpload" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelCaptureImage">
+                التقط صورة للعطل:
+            </label>
+            <!-- حقل إدخال الملف المخفي لتشغيل الكاميرا -->
+            <input type="file" id="imageUpload" accept="image/*,video/*" capture="environment" class="hidden"> <!-- Added video/* to accept -->
+            <!-- زر لتشغيل حقل إدخال الملف -->
+            <button id="captureImageBtn" class="btn btn-secondary w-full flex items-center justify-center gap-2" data-key="btnCaptureImage">
+                <!-- أيقونة الكاميرا (SVG) -->
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path d="M4.5 4.5a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-9a3 3 0 0 0-3-3H4.5ZM19.94 12.08a.75.75 0 0 0-.28-.51l-2.47-2.47a.75.75 0 0 0-.52-.22H14.25V7.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75v1.34L7.02 9.1a.75.75 0 0 0-.51.28l-2.47 2.47a.75.75 0 0 0-.22.52V16.5a.75.75 0 0 0 .75.75h15a.75.75 0 0 0 .75-.75v-4.47a.75.75 0 0 0-.26-.5Z" />
+                    <path fill-rule="evenodd" d="M12 7.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 7.5ZM10.5 12a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clip-rule="evenodd" />
+                </svg>
+                <span data-key="btnCaptureImageText">التقط صورة</span>
+            </button>
+            <!-- معاينة الصورة الملتقطة وزر الحذف -->
+            <div id="imagePreviewContainer" class="mt-4 hidden relative">
+                <img id="imagePreview" src="" alt="معاينة الصورة" class="w-full h-auto border border-gray-300 rounded-lg">
+                <button id="deleteImageBtn" class="delete-image-btn absolute top-2 left-2" data-key="btnDeleteImage">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.594 19h4.812a2.75 2.75 0 0 0 2.742-2.53l.841-10.518.148.022a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.35 7.11a.75.75 0 0 0 1.5-.06l-.35-7.11Zm3.5 0a.75.75 0 0 0-1.5.06l-.35 7.11a.75.75 0 0 0 1.5-.06l.35-7.11Z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- قسم اسم الموقع -->
+        <div class="mb-6">
+            <label for="siteName" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelSiteName">
+                اسم الموقع:
+            </label>
+            <!-- حاوية لعرض المواقع المفضلة -->
+            <div id="favoriteSitesContainer" class="favorite-sites-container">
+                <!-- سيتم إضافة المواقع المفضلة هنا بواسطة JavaScript -->
+            </div>
+            <input type="text" id="siteName" class="input-field" placeholder="أدخل اسم الموقع" required data-key="placeholderSiteName">
+        </div>
+
+        <!-- قسم وصف العطل -->
+        <div class="mb-6">
+            <label for="faultDescription" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelFaultDescription">
+                وصف العطل:
+            </label>
+            <textarea id="faultDescription" rows="4" class="input-field placeholder-gray-400" placeholder="اكتب وصفًا موجزًا للعطل هنا..." data-key="placeholderFaultDescription"></textarea>
+        </div>
+
+        <!-- مربع الملاحظات الجديد -->
+        <div class="mb-6">
+            <label for="notes" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelNotes">
+                ملاحظات:
+            </label>
+            <textarea id="notes" rows="3" class="input-field placeholder-gray-400" placeholder="أضف أي ملاحظات إضافية هنا..." data-key="placeholderNotes"></textarea>
+        </div>
+
+        <!-- زر إرسال البلاغ -->
+        <button id="submitReportBtn" class="btn btn-primary w-full mb-4" data-key="btnSubmitReport">
+            أرسل البلاغ
+        </button>
+
+        <!-- زر مراجعة التقارير السابقة -->
+        <button id="reviewReportsBtn" class="btn btn-secondary w-full" data-key="btnReviewReports">
+            مراجعة التقارير السابقة
+        </button>
+
+        <!-- صندوق الرسائل (للتأكيد) - يظهر ويختفي تلقائياً -->
+        <div id="messageBox" class="message-box">
+            <p id="messageText"></p>
+        </div>
+
+    </div>
+
+    <script type="module">
+        // استيراد وحدات Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
+
+        // إعدادات Firebase الخاصة بمشروعك
+        // **هام: استبدل هذه القيم بإعدادات مشروعك الحقيقية من لوحة تحكم Firebase**
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
+        };
+
+        // تهيئة Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Getting DOM elements
+        const htmlElement = document.documentElement;
+        const languageSelector = document.getElementById('languageSelector');
+        const faultTypeSelect = document.getElementById('faultType');
+        const siteNameInput = document.getElementById('siteName');
+        const otherFaultTypeContainer = document.getElementById('otherFaultTypeContainer');
+        const otherFaultTypeInput = document.getElementById('otherFaultType');
+        const favoriteSitesContainer = document.getElementById('favoriteSitesContainer');
+        const reportDateInput = document.getElementById('reportDate');
+        const reportTimeInput = document.getElementById('reportTime');
+        const imageUpload = document.getElementById('imageUpload');
+        const captureImageBtn = document.getElementById('captureImageBtn');
+        const imagePreviewContainer = document.getElementById('imagePreviewContainer');
+        const imagePreview = document.getElementById('imagePreview');
+        const deleteImageBtn = document.getElementById('deleteImageBtn');
+        const faultDescription = document.getElementById('faultDescription');
+        const notesInput = document.getElementById('notes');
+        const submitReportBtn = document.getElementById('submitReportBtn');
+        const reviewReportsBtn = document.getElementById('reviewReportsBtn');
+        const messageBox = document.getElementById('messageBox');
+        const messageText = document.getElementById('messageText');
+
+        let capturedFile = null;
+        let capturedImageData = null;
+
+        const MAX_FAVORITE_SITES = 7;
+        let isEmergencyMode = false;
+
+        // Translation object
+        const translations = {
+            'ar': {
+                appTitle: 'REPORTS',
+                labelDate: 'التاريخ:',
+                labelTime: 'الوقت:',
+                labelCaptureImage: 'التقط صورة/فيديو للعطل:',
+                btnCaptureImageText: 'التقط صورة/فيديو',
+                btnDeleteImage: '',
+                labelSiteName: 'اسم الموقع:',
+                placeholderSiteName: 'أدخل اسم الموقع',
+                labelFaultDescription: 'وصف العطل:',
+                placeholderFaultDescription: 'اكتب وصفًا موجزًا للعطل هنا...',
+                labelNotes: 'ملاحظات:',
+                placeholderNotes: 'أضف أي ملاحظات إضافية هنا...',
+                btnSubmitReport: 'أرسل البلاغ',
+                btnReviewReports: 'مراجعة التقارير السابقة',
+                msgEnterSiteName: 'الرجاء إدخال اسم الموقع.',
+                msgEnterDateTime: 'الرجاء إدخال التاريخ والوقت.',
+                msgCaptureOrDescribe: 'الرجاء التقاط صورة/فيديو أو كتابة وصف للعطل.',
+                msgConfirmSend: 'هل أنت متأكد من إرسال هذا البلاغ؟',
+                msgYes: 'نعم',
+                msgNo: 'لا',
+                msgReportSent: 'تم إرسال البلاغ بنجاح!',
+                msgSendCancelled: 'تم إلغاء الإرسال.',
+                msgImageCleared: 'تم مسح الملف.',
+                msgReviewInfo: 'هذا الزر سينقلك إلى صفحة التقارير في التطبيق الكامل.',
+                msgSelectFaultType: 'الرجاء اختيار نوع العطل.',
+                msgEnterOtherFaultType: 'الرجاء إدخال نوع العطل الآخر.',
+                reportSite: 'الموقع:',
+                reportDate: 'التاريخ:',
+                reportTime: 'الوقت:',
+                reportDescription: 'الوصف:',
+                reportNoDescription: 'لا يوجد وصف',
+                reportNoImage: 'لا توجد صورة/فيديو مرفقة.',
+                reportDelete: 'حذف',
+                reportDeleted: 'تم حذف البلاغ بنجاح.',
+                labelFaultType: 'نوع العطل:',
+                selectFaultTypePlaceholder: 'اختر نوع العطل',
+                faultTypeLighting: 'بلاغ عن عطل في الإضاءة',
+                faultTypeHVAC: 'بلاغ عن خلل في المكيف',
+                faultTypeCleaning: 'تنظيف وصيانة دورات المياه',
+                faultTypeChairs: 'طلب إصلاح أو استبدال كراسي',
+                faultTypeGardening: 'أعمال زراعية وصيانة المسطحات الخضراء',
+                faultTypePestControl: 'مكافحة الحشرات ورش المبيدات',
+                faultTypeEmergency: 'بلاغ طارئ',
+                faultTypeOther: 'بلاغ آخر',
+                labelOtherFaultType: 'نوع العطل الآخر:',
+                placeholderOtherFaultType: 'اكتب نوع العطل هنا...',
+                emergencySiteName: 'موقع طارئ',
+                emergencyDescription: 'عطل طارئ، الرجاء المعاينة الفورية',
+            },
+            'en': {
+                appTitle: 'REPORTS',
+                labelDate: 'Date:',
+                labelTime: 'Time:',
+                labelCaptureImage: 'Capture Fault Image/Video:',
+                btnCaptureImageText: 'Capture Image/Video',
+                btnDeleteImage: '',
+                labelSiteName: 'Site Name:',
+                placeholderSiteName: 'Enter site name',
+                labelFaultDescription: 'Fault Description:',
+                placeholderFaultDescription: 'Write a brief description of the fault here...',
+                labelNotes: 'Notes:',
+                placeholderNotes: 'Add any additional notes here...',
+                btnSubmitReport: 'Submit Report',
+                btnReviewReports: 'Review Previous Reports',
+                msgEnterSiteName: 'Please enter a site name.',
+                msgEnterDateTime: 'Please enter date and time.',
+                msgCaptureOrDescribe: 'Please capture an image/video or write a description of the fault.',
+                msgConfirmSend: 'Are you sure you want to send this report?',
+                msgYes: 'Yes',
+                msgNo: 'No',
+                msgReportSent: 'Report sent successfully!',
+                msgSendCancelled: 'Submission cancelled.',
+                msgImageCleared: 'File cleared.',
+                msgReviewInfo: 'This button will navigate to the reports page in the full application.',
+                msgSelectFaultType: 'Please select a fault type.',
+                msgEnterOtherFaultType: 'Please enter the other fault type.',
+                reportSite: 'Site:',
+                reportDate: 'Date:',
+                reportTime: 'Time:',
+                reportDescription: 'Description:',
+                reportNoDescription: 'No description',
+                reportNoImage: 'No image attached.',
+                reportDelete: 'Delete',
+                reportDeleted: 'Report deleted successfully.',
+                labelFaultType: 'Fault Type:',
+                selectFaultTypePlaceholder: 'Select Fault Type',
+                faultTypeLighting: 'Report a lighting fault',
+                faultTypeHVAC: 'Report an AC fault',
+                faultTypeCleaning: 'Restroom cleaning and maintenance',
+                faultTypeChairs: 'Request to repair or replace chairs',
+                faultTypeGardening: 'Gardening and lawn maintenance',
+                faultTypePestControl: 'Pest control and spraying',
+                faultTypeEmergency: 'Emergency Report',
+                faultTypeOther: 'Other Report',
+                labelOtherFaultType: 'Other Fault Type:',
+                placeholderOtherFaultType: 'Write the other fault type here...',
+                emergencySiteName: 'Emergency Site',
+                emergencyDescription: 'Emergency fault, immediate inspection required',
+            }
+        };
+
+        // Function to apply translations
+        function setLanguage(lang) {
+            const currentTranslations = translations[lang];
+            if (!currentTranslations) return;
+
+            htmlElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.querySelector('title').textContent = currentTranslations.appTitle;
+
+            document.querySelectorAll('[data-key]').forEach(element => {
+                const key = element.dataset.key;
+                if (currentTranslations[key]) {
+                    if (element.tagName === 'INPUT' && element.placeholder) {
+                        element.placeholder = currentTranslations[key];
+                    } else if (element.tagName === 'TEXTAREA' && element.placeholder) {
+                        element.placeholder = currentTranslations[key];
+                    } else {
+                        element.textContent = currentTranslations[key];
+                    }
+                }
+            });
+
+            document.querySelector('#captureImageBtn span').textContent = currentTranslations.btnCaptureImageText;
+
+            // Update options in fault type select
+            faultTypeSelect.querySelector('option[value=""]').textContent = currentTranslations.selectFaultTypePlaceholder;
+            faultTypeSelect.querySelector('option[value="بلاغ عن عطل في الإضاءة"]').textContent = currentTranslations.faultTypeLighting;
+            faultTypeSelect.querySelector('option[value="بلاغ عن خلل في المكيف"]').textContent = currentTranslations.faultTypeHVAC;
+            faultTypeSelect.querySelector('option[value="تنظيف وصيانة دورات المياه"]').textContent = currentTranslations.faultTypeCleaning;
+            faultTypeSelect.querySelector('option[value="طلب إصلاح أو استبدال كراسي"]').textContent = currentTranslations.faultTypeChairs;
+            faultTypeSelect.querySelector('option[value="أعمال زراعية وصيانة المسطحات الخضراء"]').textContent = currentTranslations.faultTypeGardening;
+            faultTypeSelect.querySelector('option[value="مكافحة الحشرات ورش المبيدات"]').textContent = currentTranslations.faultTypePestControl;
+            faultTypeSelect.querySelector('option[value="emergency"]').textContent = currentTranslations.faultTypeEmergency;
+            faultTypeSelect.querySelector('option[value="other"]').textContent = currentTranslations.faultTypeOther;
+            
+            // Update other fault type input label and placeholder
+            const otherFaultLabel = document.getElementById('otherFaultTypeLabel');
+            if (otherFaultLabel) otherFaultLabel.textContent = currentTranslations.labelOtherFaultType;
+            const otherFaultInput = document.getElementById('otherFaultType');
+            if (otherFaultInput) otherFaultInput.placeholder = currentTranslations.placeholderOtherFaultType;
+
+            languageSelector.value = lang;
+            loadFavoriteSites();
+        }
+
+        const savedLanguage = localStorage.getItem('appLanguage') || 'ar';
+        setLanguage(savedLanguage);
+
+        languageSelector.addEventListener('change', (event) => {
+            const newLang = event.target.value;
+            localStorage.setItem('appLanguage', newLang);
+            setLanguage(newLang);
+        });
+
+        function showMessage(messageKey, type = 'success') {
+            const currentLang = localStorage.getItem('appLanguage') || 'ar';
+            const message = translations[currentLang][messageKey] || messageKey;
+            messageText.textContent = message;
+            messageBox.style.display = 'block';
+            if (type === 'success') {
+                messageBox.style.backgroundColor = '#22c55e';
+            } else if (type === 'error') {
+                messageBox.style.backgroundColor = '#ef4444';
+            } else if (type === 'info') {
+                messageBox.style.backgroundColor = '#3b82f6';
+            }
+            setTimeout(() => {
+                messageBox.style.display = 'none';
+            }, 3000);
+        }
+
+        function setDefaultDateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = (now.getMonth() + 1).toString().padStart(2, '0');
+            const day = now.getDate().toString().padStart(2, '0');
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+
+            reportDateInput.value = `${year}-${month}-${day}`;
+            reportTimeInput.value = `${hours}:${minutes}`;
+        }
+
+        function loadFavoriteSites() {
+            const favoriteSites = JSON.parse(localStorage.getItem('favoriteSites')) || [];
+            favoriteSitesContainer.innerHTML = '';
+
+            favoriteSites.forEach(site => {
+                const siteTag = document.createElement('span');
+                siteTag.className = 'favorite-site-tag';
+                siteTag.textContent = site;
+                siteTag.addEventListener('click', () => {
+                    siteNameInput.value = site;
+                });
+                favoriteSitesContainer.appendChild(siteTag);
+            });
+        }
+
+        function addSiteToFavorites(siteName) {
+            let favoriteSites = JSON.parse(localStorage.getItem('favoriteSites')) || [];
+            
+            favoriteSites = favoriteSites.filter(site => site !== siteName);
+            
+            favoriteSites.unshift(siteName);
+            
+            if (favoriteSites.length > MAX_FAVORITE_SITES) {
+                favoriteSites = favoriteSites.slice(0, MAX_FAVORITE_SITES);
+            }
+            
+            localStorage.setItem('favoriteSites', JSON.stringify(favoriteSites));
+            loadFavoriteSites();
+        }
+
+        function toggleEmergencyMode(enable) {
+            isEmergencyMode = enable;
+            htmlElement.classList.toggle('emergency-mode', enable);
+
+            siteNameInput.readOnly = false;
+            reportDateInput.readOnly = enable;
+            reportTimeInput.readOnly = enable;
+            faultDescription.readOnly = enable;
+            notesInput.readOnly = enable;
+
+            if (enable) {
+                setDefaultDateTime();
+                siteNameInput.value = translations[localStorage.getItem('appLanguage') || 'ar'].emergencySiteName;
+                faultDescription.value = translations[localStorage.getItem('appLanguage') || 'ar'].emergencyDescription;
+                notesInput.value = '';
+                favoriteSitesContainer.style.display = 'none';
+                otherFaultTypeContainer.classList.add('hidden');
+            } else {
+                reportDateInput.value = '';
+                reportTimeInput.value = '';
+                siteNameInput.value = '';
+                faultDescription.value = '';
+                notesInput.value = '';
+                setDefaultDateTime();
+                favoriteSitesContainer.style.display = 'flex';
+                otherFaultTypeContainer.classList.add('hidden'); // Hide on normal mode
+            }
+            siteNameInput.required = true;
+            reportDateInput.required = !enable;
+            reportTimeInput.required = !enable;
+            faultDescription.required = false; 
+            notesInput.required = false;
+        }
+
+        faultTypeSelect.addEventListener('change', (event) => {
+            const selectedFault = event.target.value;
+            
+            toggleEmergencyMode(false);
+            
+            if (selectedFault === 'emergency') {
+                toggleEmergencyMode(true);
+            } else if (selectedFault === 'other') {
+                otherFaultTypeContainer.classList.remove('hidden');
+                otherFaultTypeInput.required = true;
+                otherFaultTypeInput.focus();
+            } else {
+                otherFaultTypeContainer.classList.add('hidden');
+                otherFaultTypeInput.required = false;
+            }
+        });
+
+        setDefaultDateTime();
+
+        captureImageBtn.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        imageUpload.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    imagePreview.src = e.target.result;
+                    imagePreviewContainer.classList.remove('hidden');
+                    capturedImageData = e.target.result;
+                };
+                reader.readAsDataURL(file);
+                capturedFile = file;
+            } else {
+                imagePreview.src = '';
+                imagePreviewContainer.classList.add('hidden');
+                capturedImageData = null;
+                capturedFile = null;
+            }
+        });
+
+        deleteImageBtn.addEventListener('click', () => {
+            imagePreview.src = '';
+            imagePreviewContainer.classList.add('hidden');
+            capturedImageData = null;
+            capturedFile = null;
+            imageUpload.value = '';
+            imageUpload.setAttribute('accept', 'image/*,video/*');
+            showMessage('msgImageCleared', 'success');
+        });
+
+        submitReportBtn.addEventListener('click', async () => {
+            let faultType = faultTypeSelect.value;
+            const siteName = siteNameInput.value.trim();
+            const reportDate = reportDateInput.value;
+            const reportTime = reportTimeInput.value;
+            const description = faultDescription.value.trim();
+            const notes = notesInput.value.trim();
+
+            if (!faultType) {
+                showMessage('msgSelectFaultType', 'error');
+                return;
+            }
+
+            if (faultType === 'other') {
+                const otherFaultValue = otherFaultTypeInput.value.trim();
+                if (!otherFaultValue) {
+                    showMessage('msgEnterOtherFaultType', 'error');
+                    return;
+                }
+                faultType = otherFaultValue;
+            }
+
+            if (isEmergencyMode) {
+                if (!siteName) {
+                    showMessage('msgEnterSiteName', 'error');
+                    return;
+                }
+                if (!capturedFile && !description) {
+                    showMessage('msgCaptureOrDescribe', 'error');
+                    return;
+                }
+            } else {
+                if (!siteName) {
+                    showMessage('msgEnterSiteName', 'error');
+                    return;
+                }
+                if (!reportDate || !reportTime) {
+                    showMessage('msgEnterDateTime', 'error');
+                    return;
+                }
+                if (!capturedFile && !description) {
+                    showMessage('msgCaptureOrDescribe', 'error');
+                    return;
+                }
+            }
+
+            const confirmBox = document.createElement('div');
+            confirmBox.className = 'message-box';
+            confirmBox.style.display = 'block';
+            confirmBox.style.backgroundColor = '#3b82f6';
+            
+            const currentLang = localStorage.getItem('appLanguage') || 'ar';
+            confirmBox.innerHTML = `
+                <p class="mb-4">${translations[currentLang].msgConfirmSend}</p>
+                <button id="confirmYes" class="btn btn-primary mr-2">${translations[currentLang].msgYes}</button>
+                <button id="confirmNo" class="btn btn-secondary">${translations[currentLang].msgNo}</button>
+            `;
+            document.body.appendChild(confirmBox);
+
+            document.getElementById('confirmYes').addEventListener('click', async () => {
+                confirmBox.remove();
+                showMessage('جاري إرسال البلاغ...', 'info');
+
+                let fileUrl = null;
+                if (capturedFile) {
+                    try {
+                        const storageRef = ref(storage, `fault_media/${Date.now()}_${capturedFile.name}`);
+                        const uploadTask = await uploadBytes(storageRef, capturedFile);
+                        fileUrl = await getDownloadURL(uploadTask.ref);
+                        showMessage('تم رفع الملف بنجاح.', 'success');
+                    } catch (error) {
+                        console.error("Error uploading file:", error);
+                        showMessage('فشل رفع الملف: ' + error.message, 'error');
+                        return;
+                    }
+                }
+
+                try {
+                    if (!isEmergencyMode) {
+                        addSiteToFavorites(siteName);
+                    }
+
+                    await addDoc(collection(db, "reports"), {
+                        siteName: siteName,
+                        faultType: faultType,
+                        reportDate: reportDate,
+                        reportTime: reportTime,
+                        fileUrl: fileUrl,
+                        description: description,
+                        notes: notes,
+                        timestamp: serverTimestamp(),
+                        status: 'pending'
+                    });
+
+                    showMessage('msgReportSent', 'success');
+
+                    siteNameInput.value = '';
+                    otherFaultTypeInput.value = '';
+                    faultTypeSelect.value = '';
+                    faultDescription.value = '';
+                    notesInput.value = '';
+                    imagePreview.src = '';
+                    imagePreviewContainer.classList.add('hidden');
+                    capturedImageData = null;
+                    capturedFile = null;
+                    imageUpload.value = '';
+                    imageUpload.setAttribute('accept', 'image/*,video/*');
+                    setDefaultDateTime();
+                    toggleEmergencyMode(false);
+
+                    otherFaultTypeContainer.classList.add('hidden');
+                } catch (error) {
+                    console.error("Error adding document to Firestore:", error);
+                    showMessage('فشل إرسال البلاغ: ' + error.message, 'error');
+                }
+            });
+
+            document.getElementById('confirmNo').addEventListener('click', () => {
+                confirmBox.remove();
+                showMessage('msgSendCancelled', 'error');
+            });
+        });
+
+        reviewReportsBtn.addEventListener('click', () => {
+            showMessage('msgReviewInfo', 'info');
+        });
+    </script>
+</body>
+</html>
