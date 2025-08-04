@@ -4,242 +4,242 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-key="appTitle">REPORTS</title>
-    <!-- ????? Tailwind CSS -->
+    <!-- تحميل Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* ???? ????????? */
+        /* الخط الافتراضي */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f0f4f8; /* ????? ?????? ????? */
-            transition: background-color 0.5s ease; /* ?????? ??? ??????? */
+            background-color: #f0f4f8; /* خلفية رمادية فاتحة */
+            transition: background-color 0.5s ease; /* انتقال سلس للخلفية */
         }
-        /* ??? ??????? */
+        /* وضع الطوارئ */
         body.emergency-mode {
-            background-color: #fee2e2; /* ???? ???? ???? ??????? */
+            background-color: #fee2e2; /* أحمر فاتح جداً للطوارئ */
         }
         body.emergency-mode .container {
-            border: 2px solid #ef4444; /* ???? ????? */
-            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2); /* ?? ???? */
+            border: 2px solid #ef4444; /* حدود حمراء */
+            box-shadow: 0 4px 20px rgba(239, 68, 68, 0.2); /* ظل أحمر */
         }
         body.emergency-mode .app-header .title,
         body.emergency-mode label,
         body.emergency-mode .input-field,
         body.emergency-mode .btn {
-            color: #b91c1c; /* ?? ???? ???? */
+            color: #b91c1c; /* نص أحمر داكن */
         }
         body.emergency-mode .input-field {
-            border-color: #ef4444; /* ???? ????? */
+            border-color: #ef4444; /* حدود حمراء */
         }
         body.emergency-mode .btn-primary {
-            background-image: linear-gradient(to right, #ef4444 0%, #dc2626 50%, #ef4444 100%); /* ???? ???? */
+            background-image: linear-gradient(to right, #ef4444 0%, #dc2626 50%, #ef4444 100%); /* تدرج أحمر */
         }
         body.emergency-mode .btn-secondary {
-            background-color: #b91c1c; /* ???? ???? */
+            background-color: #b91c1c; /* أحمر داكن */
         }
         body.emergency-mode .btn-secondary:hover {
-            background-color: #991b1b; /* ???? ???? */
+            background-color: #991b1b; /* أحمر أغمق */
         }
         body.emergency-mode .favorite-site-tag {
-            background-color: #fca5a5; /* ???? ???? */
-            color: #b91c1c; /* ???? ???? */
+            background-color: #fca5a5; /* أحمر فاتح */
+            color: #b91c1c; /* أحمر داكن */
         }
         body.emergency-mode .favorite-site-tag:hover {
-            background-color: #f87171; /* ???? ???? */
+            background-color: #f87171; /* أحمر أغمق */
         }
         body.emergency-mode .message-box {
-            background-color: #ef4444; /* ???? ?????? ??????? */
+            background-color: #ef4444; /* أحمر لرسائل الطوارئ */
         }
 
 
-        /* ????? ??????? ???????? */
+        /* حاوية التطبيق الرئيسية */
         .container {
             max-width: 600px;
             margin: 2rem auto;
             padding: 1.5rem;
             background-color: #ffffff;
             border-radius: 1rem;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ?? ???? */
-            transition: all 0.5s ease; /* ?????? ??? ?????? ????? */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* ظل خفيف */
+            transition: all 0.5s ease; /* انتقال سلس للحدود والظل */
         }
-        /* ????? ?????? ??????? */
+        /* تنسيق تسميات الإدخال */
         .input-group label {
             font-weight: bold;
             margin-bottom: 0.5rem;
             display: block;
-            color: #334155; /* ?? ???? ???????? */
+            color: #334155; /* نص أغمق للتسميات */
         }
-        /* ????? ???? ??????? ??????? */
+        /* تنسيق حقول الإدخال والنصوص */
         .input-field {
             width: 100%;
             padding: 0.75rem;
-            border: 1px solid #cbd5e1; /* ???? ?????? ????? */
+            border: 1px solid #cbd5e1; /* حدود رمادية فاتحة */
             border-radius: 0.5rem;
             font-size: 1rem;
-            color: #475569; /* ?? ????? ????? */
-            transition: all 0.3s ease; /* ?????? ??? ?????? */
+            color: #475569; /* نص رمادي متوسط */
+            transition: all 0.3s ease; /* انتقال سلس للحقول */
         }
-        /* ????? ??????? ?????? */
+        /* تنسيق الأزرار العامة */
         .btn {
             padding: 1rem 1.5rem;
             border-radius: 0.75rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s ease; /* ?????? ??? ??? ??????? */
-            font-size: 1.125rem; /* ?? ???? ??????? */
+            transition: background-color 0.3s ease; /* انتقال سلس عند التحويم */
+            font-size: 1.125rem; /* خط أكبر للأزرار */
         }
-        /* ????? ???? ??????? (???????) */
+        /* تنسيق الزر الأساسي (الإرسال) */
         .btn-primary {
-            /* ????? ???? ???? ?????? ???????? */
+            /* إضافة تدرج لوني وتأثير الانزلاق */
             background-image: linear-gradient(to right, #22c55e 0%, #16a34a 50%, #22c55e 100%);
-            background-size: 200% auto; /* ??? ????? ?????? ?????? ????????? */
+            background-size: 200% auto; /* ضعف الحجم الأصلي للسماح بالانزلاق */
             color: white;
-            transition: background-position 0.5s ease; /* ?????? ??? ????? ??????? */
+            transition: background-position 0.5s ease; /* انتقال سلس لموضع الخلفية */
         }
         .btn-primary:hover {
-            background-position: -100% 0; /* ????? ??????? ?????? (?????? ?? RTL) */
+            background-position: -100% 0; /* تحريك الخلفية لليمين (لليسار في RTL) */
         }
-        /* ????? ???? ??????? (?????? ??????) */
+        /* تنسيق الزر الثانوي (التقاط الصورة) */
         .btn-secondary {
-            background-color: #64748b; /* ????? ???? ??????? */
+            background-color: #64748b; /* رمادي للزر الثانوي */
             color: white;
         }
         .btn-secondary:hover {
-            background-color: #475569; /* ????? ???? ??? ??????? */
+            background-color: #475569; /* رمادي أغمق عند التحويم */
         }
-        /* ????? ?????? ??????? ???????? */
+        /* تنسيق بطاقات التقرير المعروضة */
         .report-card {
-            background-color: #f8fafc; /* ???? ????? ???? ???? ??????? ??????? */
+            background-color: #f8fafc; /* أزرق رمادي فاتح جداً لبطاقات التقرير */
             border: 1px solid #e2e8f0;
             border-radius: 0.75rem;
             padding: 1rem;
             margin-bottom: 1rem;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* ?? ???? */
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* ظل خفيف */
         }
-        /* ????? ????? ???? ?????? ??????? */
+        /* تنسيق الصور داخل بطاقات التقرير */
         .report-card img {
             max-width: 100%;
             height: auto;
             border-radius: 0.5rem;
             margin-top: 0.75rem;
         }
-        /* ????? ????? ??????? (???????/?????) */
+        /* تنسيق صندوق الرسائل (للتأكيد/الخطأ) */
         .message-box {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: #22c55e; /* ???? ??????? ?????? */
+            background-color: #22c55e; /* أخضر افتراضي للنجاح */
             color: white;
             padding: 1.5rem;
             border-radius: 1rem;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            z-index: 1000; /* ????? ????? ??? ??????? ?????? */
+            z-index: 1000; /* لضمان ظهوره فوق العناصر الأخرى */
             text-align: center;
             font-size: 1.25rem;
-            display: none; /* ???? ????????? */
+            display: none; /* مخفي افتراضياً */
         }
-        /* ????? ?? ??? ???????? ?????? */
+        /* تنسيق زر سلة المهملات للصورة */
         .delete-image-btn {
-            background-color: #ef4444; /* ???? */
+            background-color: #ef4444; /* أحمر */
             color: white;
             padding: 0.5rem;
             border-radius: 0.5rem;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            display: flex; /* ?????? ???????? ????? */
+            display: flex; /* لترتيب الأيقونة والنص */
             align-items: center;
             justify-content: center;
-            font-size: 0.875rem; /* ?? ???? */
-            line-height: 1; /* ????? ?????? ???????? ????? ???? ??? */
-            margin-top: 0.5rem; /* ????? ???? ???? */
-            width: fit-content; /* ??? ???? ??? ??????? */
+            font-size: 0.875rem; /* خط أصغر */
+            line-height: 1; /* لضمان محاذاة الأيقونة والنص بشكل جيد */
+            margin-top: 0.5rem; /* مسافة أعلى الزر */
+            width: fit-content; /* حجم الزر حسب المحتوى */
         }
         .delete-image-btn:hover {
-            background-color: #dc2626; /* ???? ???? ??? ??????? */
+            background-color: #dc2626; /* أحمر أغمق عند التحويم */
         }
         .delete-image-btn svg {
-            width: 1rem; /* ??? ?????? ??? ???????? */
+            width: 1rem; /* حجم أيقونة سلة المهملات */
             height: 1rem;
-            margin-left: 0.25rem; /* ????? ??? ???? ????????? */
+            margin-left: 0.25rem; /* مسافة بين النص والأيقونة */
         }
-        /* ????? ??? ??????? ?? ?????? ???????? */
+        /* تنسيق رأس التطبيق مع الشعار والعنوان */
         .app-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 0.5rem; /* ????? ??????? ??? ??????? ??????? */
+            margin-bottom: 0.5rem; /* تقليل المسافة بعد العنوان الرئيسي */
             padding-bottom: 1rem;
-            border-bottom: 1px solid #e2e8f0; /* ?? ???? */
-            flex-wrap: wrap; /* ?????? ???????? ????????? ??? ??? ???? ??? ??????? ??????? */
+            border-bottom: 1px solid #e2e8f0; /* خط فاصل */
+            flex-wrap: wrap; /* للسماح بالعناصر بالانتقال إلى سطر جديد على الشاشات الصغيرة */
         }
-        .app-header .logo {
-            max-height: 60px; /* ??? ?????? */
+        .app-header .logo { /* هذا النمط لم يعد مستخدمًا ولكن تم الاحتفاظ به في حالة إعادة إضافة الشعار */
+            max-height: 60px; /* حجم الشعار */
             width: auto;
-            border-radius: 0.5rem; /* ???? ?????? ?????? */
-            order: 2; /* ????? ?????? ????? ??? ?????? ?? ??????? RTL */
+            border-radius: 0.5rem; /* حواف دائرية للشعار */
+            order: 2; /* ترتيب الشعار ليكون على اليمين في التخطيط RTL */
             margin-right: 0;
-            margin-left: auto; /* ??? ?????? ??? ???? ?????? */
+            margin-left: auto; /* دفع الشعار إلى أقصى اليمين */
         }
         .app-header .title-container {
-            flex-grow: 1; /* ?????? ??????? ???? ??????? ??????? */
-            text-align: center; /* ?????? ??????? ????? ?????? ?? ??????? */
-            order: 1; /* ????? ??????? ????? ????? */
-            width: 100%; /* ????? ?? ???? ??????? ????? ?????? ??? ??????? ??????? */
+            flex-grow: 1; /* للسماح للحاوية بأخذ المساحة المتاحة */
+            text-align: center; /* محاذاة العنوان والنص الفرعي في المنتصف */
+            order: 1; /* ترتيب العنوان ليكون أولاً */
+            width: 100%; /* لضمان أن يأخذ العنوان سطرًا كاملاً على الشاشات الصغيرة */
         }
         .app-header .title {
-            font-size: 2.25rem; /* ??? ?? ???? ??????? */
+            font-size: 2.25rem; /* حجم خط أكبر للعنوان */
             font-weight: bold;
-            color: #1a202c; /* ??? ???? ??????? */
-            margin-bottom: 0.25rem; /* ????? ????? ??? ??????? ????? ?????? */
+            color: #1a202c; /* لون داكن للعنوان */
+            margin-bottom: 0.25rem; /* مسافة صغيرة بين العنوان والنص الفرعي */
         }
         .app-header .copyright-text {
-            font-size: 0.75rem; /* ??? ?? ???? ???? */
-            color: #64748b; /* ??? ????? ???? ???? */
-            display: block; /* ????? ?? ???? ???? ?? ??? ??? ?? */
-            margin-top: 0.25rem; /* ????? ????? ???? ???? */
+            font-size: 0.75rem; /* حجم خط صغير جداً */
+            color: #64748b; /* لون رمادي فاتح للنص */
+            display: block; /* لضمان أن يكون النص في سطر خاص به */
+            margin-top: 0.25rem; /* مسافة صغيرة أعلى النص */
         }
 
-        /* ??????? ??? ??????? ??????? */
+        /* تعديلات على الشاشات الصغيرة */
         @media (max-width: 640px) {
             .app-header {
-                flex-direction: column; /* ????? ????? ??? ??????? ??????? */
-                align-items: center; /* ?????? ??????? ?? ??????? */
+                flex-direction: column; /* ترتيب عمودي على الشاشات الصغيرة */
+                align-items: center; /* محاذاة العناصر في المنتصف */
                 text-align: center;
             }
             .app-header .logo {
-                order: 1; /* ?????? ????? */
+                order: 1; /* الشعار أولاً */
                 margin-left: 0;
                 margin-right: 0;
-                margin-bottom: 1rem; /* ????? ??? ?????? */
+                margin-bottom: 1rem; /* مسافة تحت الشعار */
             }
             .app-header .title-container {
-                order: 2; /* ??????? ?????? */
-                width: auto; /* ?????? ??????? ?????? ????? ???????? */
+                order: 2; /* العنوان ثانياً */
+                width: auto; /* السماح للحاوية بتحديد عرضها تلقائيًا */
             }
             .app-header .title {
-                font-size: 2rem; /* ????? ??? ???? ??? ??????? ??????? */
+                font-size: 2rem; /* تقليل حجم الخط على الشاشات الصغيرة */
             }
         }
 
-        /* ????? ??????? */
+        /* تنسيق المفضلة */
         .favorite-site-tag {
-            background-color: #e0e7ff; /* ??? ????? ???? */
-            color: #4338ca; /* ??? ?? ???? ???? */
+            background-color: #e0e7ff; /* لون خلفية خفيف */
+            color: #4338ca; /* لون نص أزرق داكن */
             padding: 0.4rem 0.8rem;
             border-radius: 0.5rem;
             font-size: 0.9rem;
             cursor: pointer;
             transition: background-color 0.2s ease;
-            white-space: nowrap; /* ??? ???? ?? ???????? */
+            white-space: nowrap; /* منع النص من الالتفاف */
         }
         .favorite-site-tag:hover {
-            background-color: #c7d2fe; /* ??? ???? ??? ??????? */
+            background-color: #c7d2fe; /* لون أغمق عند التحويم */
         }
         .favorite-sites-container {
             display: flex;
-            flex-wrap: wrap; /* ?????? ???????? ????????? ??? ??? ???? */
-            gap: 0.5rem; /* ????? ??? ??????? */
-            margin-bottom: 1rem; /* ????? ??? ??????? */
+            flex-wrap: wrap; /* للسماح بالعناصر بالانتقال إلى سطر جديد */
+            gap: 0.5rem; /* مسافة بين العناصر */
+            margin-bottom: 1rem; /* مسافة تحت المفضلة */
         }
         /* Language selector styling */
         .language-selector {
@@ -277,75 +277,78 @@
 </head>
 <body class="p-4">
     <div class="container">
-        <!-- ??? ??????? ?? ?????? ???????? ????? ????? -->
+        <!-- رأس التطبيق مع الشعار والعنوان ومحدد اللغة -->
         <div class="app-header">
             <div class="title-container">
                 <h1 class="title" data-key="appTitle">REPORTS</h1>
                 <small class="copyright-text">MR.MSTFA</small>
             </div>
-            <!-- ??????: ????? ????? 225.JPG ?????? ???? ??? ???? ???? placeholder -->
-            <img src="225.JPG" onerror="this.src='https://placehold.co/60x60/000000/FFFFFF?text=Logo'" alt="???? ??????" class="logo">
-            <!-- ???? ????? -->
+            <!-- محدد اللغة -->
             <select id="languageSelector" class="language-selector">
-                <option value="ar">???????</option>
+                <option value="ar">العربية</option>
                 <option value="en">English</option>
             </select>
         </div>
 
-        <!-- ??? ??????? ?????? (??????? ?????? ??????) -->
+        <!-- قسم معلومات البلاغ (التاريخ والوقت يدوياً) -->
         <div class="mb-6 p-4 bg-blue-50 rounded-lg shadow-sm">
             <div class="mb-4">
                 <label for="faultType" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelFaultType">
-                    ??? ?????:
+                    نوع العطل:
                 </label>
                 <select id="faultType" class="input-field select-enhanced"> <!-- Added select-enhanced class -->
-                    <option value="" data-key="selectFaultTypePlaceholder">???? ??? ?????</option>
-                    <option value="plumbing" data-key="faultTypePlumbing">?????</option>
-                    <option value="electricity" data-key="faultTypeElectricity">??????</option>
-                    <option value="hvac" data-key="faultTypeHVAC">????? ??????</option>
-                    <option value="network" data-key="faultTypeNetwork">???? ???????</option>
-                    <option value="electronics" data-key="faultTypeElectronics">????? ?????????</option>
-                    <option value="furniture" data-key="faultTypeFurniture">???? ??????</option>
-                    <option value="cleaning" data-key="faultTypeCleaning">????? ??????</option>
-                    <option value="construction" data-key="faultTypeConstruction">????? ????</option>
-                    <option value="other" data-key="faultTypeOther">????</option>
-                    <option value="emergency" data-key="faultTypeEmergency">????</option>
+                    <option value="" data-key="selectFaultTypePlaceholder">اختر نوع العطل</option>
+                    <option value="بلاغ عن عطل في الإضاءة" data-key="faultTypeLighting">بلاغ عن عطل في الإضاءة</option>
+                    <option value="بلاغ عن خلل في المكيف" data-key="faultTypeHVAC">بلاغ عن خلل في المكيف</option>
+                    <option value="تنظيف وصيانة دورات المياه" data-key="faultTypeCleaning">تنظيف وصيانة دورات المياه</option>
+                    <option value="طلب إصلاح أو استبدال كراسي" data-key="faultTypeChairs">طلب إصلاح أو استبدال كراسي</option>
+                    <option value="أعمال زراعية وصيانة المسطحات الخضراء" data-key="faultTypeGardening">أعمال زراعية وصيانة المسطحات الخضراء</option>
+                    <option value="مكافحة الحشرات ورش المبيدات" data-key="faultTypePestControl">مكافحة الحشرات ورش المبيدات</option>
+                    <option value="emergency" data-key="faultTypeEmergency">بلاغ طارئ</option>
+                    <option value="other" data-key="faultTypeOther">بلاغ آخر</option>
                 </select>
+            </div>
+            <!-- مربع نص يظهر عند اختيار "بلاغ آخر" -->
+            <div id="otherFaultTypeContainer" class="mb-4 hidden">
+                <label for="otherFaultType" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelOtherFaultType">
+                    نوع العطل الآخر:
+                </label>
+                <input type="text" id="otherFaultType" class="input-field" placeholder="اكتب نوع العطل" data-key="placeholderOtherFaultType">
             </div>
 
             <div class="mb-4">
                 <label for="reportDate" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelDate">
-                    ???????:
+                    التاريخ:
                 </label>
                 <input type="date" id="reportDate" class="input-field" required>
             </div>
             <div>
                 <label for="reportTime" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelTime">
-                    ?????:
+                    الوقت:
                 </label>
                 <input type="time" id="reportTime" class="input-field" required>
             </div>
         </div>
 
-        <!-- ??? ?????? ?????? -->
+        <!-- قسم التقاط الصورة -->
         <div class="mb-6">
             <label for="imageUpload" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelCaptureImage">
-                ????? ???? ?????:
+                التقط صورة للعطل:
             </label>
-            <!-- ??? ????? ????? ?????? ?????? ???????? -->
+            <!-- حقل إدخال الملف المخفي لتشغيل الكاميرا -->
             <input type="file" id="imageUpload" accept="image/*,video/*" capture="environment" class="hidden"> <!-- Added video/* to accept -->
-            <!-- ?? ?????? ??? ????? ????? -->
+            <!-- زر لتشغيل حقل إدخال الملف -->
             <button id="captureImageBtn" class="btn btn-secondary w-full flex items-center justify-center gap-2" data-key="btnCaptureImage">
-                <!-- ?????? ???????? (SVG) -->
+                <!-- أيقونة الكاميرا (SVG) -->
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path d="M4.5 4.5a3 3 0 0 0-3 3v9a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3v-9a3 3 0 0 0-3-3H4.5ZM19.94 12.08a.75.75 0 0 0-.28-.51l-2.47-2.47a.75.75 0 0 0-.52-.22H14.25V7.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75v1.34L7.02 9.1a.75.75 0 0 0-.51.28l-2.47 2.47a.75.75 0 0 0-.22.52V16.5a.75.75 0 0 0 .75.75h15a.75.75 0 0 0 .75-.75v-4.47a.75.75 0 0 0-.26-.5Z" />
                     <path fill-rule="evenodd" d="M12 7.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 7.5ZM10.5 12a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" clip-rule="evenodd" />
                 </svg>
-                <span data-key="btnCaptureImageText">????? ????</span>
+                <span data-key="btnCaptureImageText">التقط صورة</span>
             </button>
-            <!-- ?????? ?????? ???????? ??? ????? -->
+            <!-- معاينة الصورة الملتقطة وزر الحذف -->
             <div id="imagePreviewContainer" class="mt-4 hidden relative">
-                <img id="imagePreview" src="" alt="?????? ??????" class="w-full h-auto border border-gray-300 rounded-lg">
+                <img id="imagePreview" src="" alt="معاينة الصورة" class="w-full h-auto border border-gray-300 rounded-lg">
                 <button id="deleteImageBtn" class="delete-image-btn absolute top-2 left-2" data-key="btnDeleteImage">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
                         <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 1 0 .23 1.482l.149-.022.841 10.518A2.75 2.75 0 0 0 7.594 19h4.812a2.75 2.75 0 0 0 2.742-2.53l.841-10.518.148.022a.75.75 0 0 0 .23-1.482A41.03 41.03 0 0 0 14 4.193V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4ZM8.58 7.72a.75.75 0 0 0-1.5.06l.35 7.11a.75.75 0 0 0 1.5-.06l-.35-7.11Zm3.5 0a.75.75 0 0 0-1.5.06l-.35 7.11a.75.75 0 0 0 1.5-.06l.35-7.11Z" clip-rule="evenodd" />
@@ -354,68 +357,69 @@
             </div>
         </div>
 
-        <!-- ??? ??? ?????? -->
+        <!-- قسم اسم الموقع -->
         <div class="mb-6">
             <label for="siteName" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelSiteName">
-                ??? ??????:
+                اسم الموقع:
             </label>
-            <!-- ????? ???? ??????? ??????? -->
+            <!-- حاوية لعرض المواقع المفضلة -->
             <div id="favoriteSitesContainer" class="favorite-sites-container">
-                <!-- ???? ????? ??????? ??????? ??? ?????? JavaScript -->
+                <!-- سيتم إضافة المواقع المفضلة هنا بواسطة JavaScript -->
             </div>
-            <input type="text" id="siteName" class="input-field" placeholder="???? ??? ??????" required data-key="placeholderSiteName">
+            <input type="text" id="siteName" class="input-field" placeholder="أدخل اسم الموقع" required data-key="placeholderSiteName">
         </div>
 
-        <!-- ??? ??? ????? -->
+        <!-- قسم وصف العطل -->
         <div class="mb-6">
             <label for="faultDescription" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelFaultDescription">
-                ??? ?????:
+                وصف العطل:
             </label>
-            <textarea id="faultDescription" rows="4" class="input-field placeholder-gray-400" placeholder="???? ????? ?????? ????? ???..." data-key="placeholderFaultDescription"></textarea>
+            <textarea id="faultDescription" rows="4" class="input-field placeholder-gray-400" placeholder="اكتب وصفًا موجزًا للعطل هنا..." data-key="placeholderFaultDescription"></textarea>
         </div>
 
-        <!-- ?? ????? ?????? -->
+        <!-- مربع الملاحظات الجديد -->
+        <div class="mb-6">
+            <label for="notes" class="text-lg font-semibold text-gray-700 mb-2 block" data-key="labelNotes">
+                ملاحظات:
+            </label>
+            <textarea id="notes" rows="3" class="input-field placeholder-gray-400" placeholder="أضف أي ملاحظات إضافية هنا..." data-key="placeholderNotes"></textarea>
+        </div>
+
+        <!-- زر إرسال البلاغ -->
         <button id="submitReportBtn" class="btn btn-primary w-full mb-4" data-key="btnSubmitReport">
-            ???? ??????
+            أرسل البلاغ
         </button>
 
-        <!-- ?? ?????? ???????? ??????? -->
+        <!-- زر مراجعة التقارير السابقة -->
         <button id="reviewReportsBtn" class="btn btn-secondary w-full" data-key="btnReviewReports">
-            ?????? ???????? ???????
+            مراجعة التقارير السابقة
         </button>
 
-        <!-- ????? ??????? (???????) - ???? ?????? ???????? -->
+        <!-- صندوق الرسائل (للتأكيد) - يظهر ويختفي تلقائياً -->
         <div id="messageBox" class="message-box">
             <p id="messageText"></p>
         </div>
 
-        <!-- ??? ???????? ??????? (??? ?????? ?? ????? ???????) -->
-        <!--
-        <h2 class="text-2xl font-bold text-gray-800 mt-10 mb-4 text-center">???????? ???????</h2>
-        <div id="reportsList" class="space-y-4">
-            <p id="noReportsMessage" class="text-gray-500 text-center">?? ???? ?????? ????? ???.</p>
-        </div>
-        -->
     </div>
 
     <script type="module">
-        // ??????? ????? Firebase
+        // استيراد وحدات Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-storage.js";
 
-        // ??????? Firebase ?????? ???????
-        // **???: ?????? ??? ????? ???????? ?????? ???????? ?? ???? ???? Firebase**
+        // إعدادات Firebase الخاصة بمشروعك
+        // **هام: استبدل هذه القيم بإعدادات مشروعك الحقيقية من لوحة تحكم Firebase**
         const firebaseConfig = {
-            apiKey: "AIzaSyA991x4MoNlJ5XnPRY8bYa7UHLYCN50W8", // ?? ????? ??? ????? ????? ??? ??????
-            authDomain: "reports-f8a7c.firebaseapp.com",
-            projectId: "reports-f8a7c", // ?? ????? ????? ???
-            storageBucket: "reports-f8a7c.appspot.com",
-            messagingSenderId: "226959132197",
-            appId: "1:226959132197:web:461fb45d4b74d4baa1cc", // ?? ????? ????? ?????? ????? ???
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID",
         };
 
-        // ????? Firebase
+        // تهيئة Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const storage = getStorage(app);
@@ -425,6 +429,8 @@
         const languageSelector = document.getElementById('languageSelector');
         const faultTypeSelect = document.getElementById('faultType');
         const siteNameInput = document.getElementById('siteName');
+        const otherFaultTypeContainer = document.getElementById('otherFaultTypeContainer');
+        const otherFaultTypeInput = document.getElementById('otherFaultType');
         const favoriteSitesContainer = document.getElementById('favoriteSitesContainer');
         const reportDateInput = document.getElementById('reportDate');
         const reportTimeInput = document.getElementById('reportTime');
@@ -434,13 +440,14 @@
         const imagePreview = document.getElementById('imagePreview');
         const deleteImageBtn = document.getElementById('deleteImageBtn');
         const faultDescription = document.getElementById('faultDescription');
+        const notesInput = document.getElementById('notes');
         const submitReportBtn = document.getElementById('submitReportBtn');
         const reviewReportsBtn = document.getElementById('reviewReportsBtn');
         const messageBox = document.getElementById('messageBox');
         const messageText = document.getElementById('messageText');
 
-        let capturedFile = null; // ?????? ??? ??????/??????? ?????
-        let capturedImageData = null; // ?????? ?????? ??????/??????? ????? Base64 ????? ?????? ???
+        let capturedFile = null;
+        let capturedImageData = null;
 
         const MAX_FAVORITE_SITES = 7;
         let isEmergencyMode = false;
@@ -449,50 +456,53 @@
         const translations = {
             'ar': {
                 appTitle: 'REPORTS',
-                labelDate: '???????:',
-                labelTime: '?????:',
-                labelCaptureImage: '????? ????/????? ?????:',
-                btnCaptureImageText: '????? ????/?????',
-                btnDeleteImage: '', // Text is empty, only icon
-                labelSiteName: '??? ??????:',
-                placeholderSiteName: '???? ??? ??????',
-                labelFaultDescription: '??? ?????:',
-                placeholderFaultDescription: '???? ????? ?????? ????? ???...',
-                btnSubmitReport: '???? ??????',
-                btnReviewReports: '?????? ???????? ???????',
-                msgEnterSiteName: '?????? ????? ??? ??????.',
-                msgEnterDateTime: '?????? ????? ??????? ??????.',
-                msgCaptureOrDescribe: '?????? ?????? ????/????? ?? ????? ??? ?????.',
-                msgConfirmSend: '?? ??? ????? ?? ????? ??? ???????',
-                msgYes: '???',
-                msgNo: '??',
-                msgReportSent: '?? ????? ?????? ?????!',
-                msgSendCancelled: '?? ????? ???????.',
-                msgImageCleared: '?? ??? ?????.', // Updated message
-                msgReviewInfo: '??? ???? ?????? ??? ???? ???????? ?? ??????? ??????.',
-                msgSelectFaultType: '?????? ?????? ??? ?????.', // New message
-                reportSite: '??????:',
-                reportDate: '???????:',
-                reportTime: '?????:',
-                reportDescription: '?????:',
-                reportNoDescription: '?? ???? ???',
-                reportNoImage: '?? ???? ????/????? ?????.', // Updated message
-                reportDelete: '???',
-                reportDeleted: '?? ??? ?????? ?????.',
-                labelFaultType: '??? ?????:',
-                selectFaultTypePlaceholder: '???? ??? ?????',
-                faultTypePlumbing: '?????',
-                faultTypeElectricity: '??????',
-                faultTypeHVAC: '????? ??????',
-                faultTypeNetwork: '???? ???????',
-                faultTypeElectronics: '????? ?????????',
-                faultTypeFurniture: '???? ??????',
-                faultTypeCleaning: '????? ??????',
-                faultTypeConstruction: '????? ????',
-                faultTypeOther: '????',
-                faultTypeEmergency: '????',
-                emergencySiteName: '???? ????',
-                emergencyDescription: '??? ????? ?????? ???????? ???????',
+                labelDate: 'التاريخ:',
+                labelTime: 'الوقت:',
+                labelCaptureImage: 'التقط صورة/فيديو للعطل:',
+                btnCaptureImageText: 'التقط صورة/فيديو',
+                btnDeleteImage: '',
+                labelSiteName: 'اسم الموقع:',
+                placeholderSiteName: 'أدخل اسم الموقع',
+                labelFaultDescription: 'وصف العطل:',
+                placeholderFaultDescription: 'اكتب وصفًا موجزًا للعطل هنا...',
+                labelNotes: 'ملاحظات:',
+                placeholderNotes: 'أضف أي ملاحظات إضافية هنا...',
+                btnSubmitReport: 'أرسل البلاغ',
+                btnReviewReports: 'مراجعة التقارير السابقة',
+                msgEnterSiteName: 'الرجاء إدخال اسم الموقع.',
+                msgEnterDateTime: 'الرجاء إدخال التاريخ والوقت.',
+                msgCaptureOrDescribe: 'الرجاء التقاط صورة/فيديو أو كتابة وصف للعطل.',
+                msgConfirmSend: 'هل أنت متأكد من إرسال هذا البلاغ؟',
+                msgYes: 'نعم',
+                msgNo: 'لا',
+                msgReportSent: 'تم إرسال البلاغ بنجاح!',
+                msgSendCancelled: 'تم إلغاء الإرسال.',
+                msgImageCleared: 'تم مسح الملف.',
+                msgReviewInfo: 'هذا الزر سينقلك إلى صفحة التقارير في التطبيق الكامل.',
+                msgSelectFaultType: 'الرجاء اختيار نوع العطل.',
+                msgEnterOtherFaultType: 'الرجاء إدخال نوع العطل الآخر.',
+                reportSite: 'الموقع:',
+                reportDate: 'التاريخ:',
+                reportTime: 'الوقت:',
+                reportDescription: 'الوصف:',
+                reportNoDescription: 'لا يوجد وصف',
+                reportNoImage: 'لا توجد صورة/فيديو مرفقة.',
+                reportDelete: 'حذف',
+                reportDeleted: 'تم حذف البلاغ بنجاح.',
+                labelFaultType: 'نوع العطل:',
+                selectFaultTypePlaceholder: 'اختر نوع العطل',
+                faultTypeLighting: 'بلاغ عن عطل في الإضاءة',
+                faultTypeHVAC: 'بلاغ عن خلل في المكيف',
+                faultTypeCleaning: 'تنظيف وصيانة دورات المياه',
+                faultTypeChairs: 'طلب إصلاح أو استبدال كراسي',
+                faultTypeGardening: 'أعمال زراعية وصيانة المسطحات الخضراء',
+                faultTypePestControl: 'مكافحة الحشرات ورش المبيدات',
+                faultTypeEmergency: 'بلاغ طارئ',
+                faultTypeOther: 'بلاغ آخر',
+                labelOtherFaultType: 'نوع العطل الآخر:',
+                placeholderOtherFaultType: 'اكتب نوع العطل هنا...',
+                emergencySiteName: 'موقع طارئ',
+                emergencyDescription: 'عطل طارئ، الرجاء المعاينة الفورية',
             },
             'en': {
                 appTitle: 'REPORTS',
@@ -505,6 +515,8 @@
                 placeholderSiteName: 'Enter site name',
                 labelFaultDescription: 'Fault Description:',
                 placeholderFaultDescription: 'Write a brief description of the fault here...',
+                labelNotes: 'Notes:',
+                placeholderNotes: 'Add any additional notes here...',
                 btnSubmitReport: 'Submit Report',
                 btnReviewReports: 'Review Previous Reports',
                 msgEnterSiteName: 'Please enter a site name.',
@@ -518,6 +530,7 @@
                 msgImageCleared: 'File cleared.',
                 msgReviewInfo: 'This button will navigate to the reports page in the full application.',
                 msgSelectFaultType: 'Please select a fault type.',
+                msgEnterOtherFaultType: 'Please enter the other fault type.',
                 reportSite: 'Site:',
                 reportDate: 'Date:',
                 reportTime: 'Time:',
@@ -528,16 +541,16 @@
                 reportDeleted: 'Report deleted successfully.',
                 labelFaultType: 'Fault Type:',
                 selectFaultTypePlaceholder: 'Select Fault Type',
-                faultTypePlumbing: 'Plumbing',
-                faultTypeElectricity: 'Electricity',
-                faultTypeHVAC: 'HVAC/Cooling',
-                faultTypeNetwork: 'Network/Internet',
-                faultTypeElectronics: 'Electronic Devices',
-                faultTypeFurniture: 'Furniture/Equipment',
-                faultTypeCleaning: 'Cleaning/Maintenance',
-                faultTypeConstruction: 'Construction Work',
-                faultTypeOther: 'Other',
-                faultTypeEmergency: 'Emergency',
+                faultTypeLighting: 'Report a lighting fault',
+                faultTypeHVAC: 'Report an AC fault',
+                faultTypeCleaning: 'Restroom cleaning and maintenance',
+                faultTypeChairs: 'Request to repair or replace chairs',
+                faultTypeGardening: 'Gardening and lawn maintenance',
+                faultTypePestControl: 'Pest control and spraying',
+                faultTypeEmergency: 'Emergency Report',
+                faultTypeOther: 'Other Report',
+                labelOtherFaultType: 'Other Fault Type:',
+                placeholderOtherFaultType: 'Write the other fault type here...',
                 emergencySiteName: 'Emergency Site',
                 emergencyDescription: 'Emergency fault, immediate inspection required',
             }
@@ -566,17 +579,22 @@
 
             document.querySelector('#captureImageBtn span').textContent = currentTranslations.btnCaptureImageText;
 
+            // Update options in fault type select
             faultTypeSelect.querySelector('option[value=""]').textContent = currentTranslations.selectFaultTypePlaceholder;
-            faultTypeSelect.querySelector('option[value="plumbing"]').textContent = currentTranslations.faultTypePlumbing;
-            faultTypeSelect.querySelector('option[value="electricity"]').textContent = currentTranslations.faultTypeElectricity;
-            faultTypeSelect.querySelector('option[value="hvac"]').textContent = currentTranslations.faultTypeHVAC;
-            faultTypeSelect.querySelector('option[value="network"]').textContent = currentTranslations.faultTypeNetwork;
-            faultTypeSelect.querySelector('option[value="electronics"]').textContent = currentTranslations.faultTypeElectronics;
-            faultTypeSelect.querySelector('option[value="furniture"]').textContent = currentTranslations.faultTypeFurniture;
-            faultTypeSelect.querySelector('option[value="cleaning"]').textContent = currentTranslations.faultTypeCleaning;
-            faultTypeSelect.querySelector('option[value="construction"]').textContent = currentTranslations.faultTypeConstruction;
-            faultTypeSelect.querySelector('option[value="other"]').textContent = currentTranslations.faultTypeOther;
+            faultTypeSelect.querySelector('option[value="بلاغ عن عطل في الإضاءة"]').textContent = currentTranslations.faultTypeLighting;
+            faultTypeSelect.querySelector('option[value="بلاغ عن خلل في المكيف"]').textContent = currentTranslations.faultTypeHVAC;
+            faultTypeSelect.querySelector('option[value="تنظيف وصيانة دورات المياه"]').textContent = currentTranslations.faultTypeCleaning;
+            faultTypeSelect.querySelector('option[value="طلب إصلاح أو استبدال كراسي"]').textContent = currentTranslations.faultTypeChairs;
+            faultTypeSelect.querySelector('option[value="أعمال زراعية وصيانة المسطحات الخضراء"]').textContent = currentTranslations.faultTypeGardening;
+            faultTypeSelect.querySelector('option[value="مكافحة الحشرات ورش المبيدات"]').textContent = currentTranslations.faultTypePestControl;
             faultTypeSelect.querySelector('option[value="emergency"]').textContent = currentTranslations.faultTypeEmergency;
+            faultTypeSelect.querySelector('option[value="other"]').textContent = currentTranslations.faultTypeOther;
+            
+            // Update other fault type input label and placeholder
+            const otherFaultLabel = document.getElementById('otherFaultTypeLabel');
+            if (otherFaultLabel) otherFaultLabel.textContent = currentTranslations.labelOtherFaultType;
+            const otherFaultInput = document.getElementById('otherFaultType');
+            if (otherFaultInput) otherFaultInput.placeholder = currentTranslations.placeholderOtherFaultType;
 
             languageSelector.value = lang;
             loadFavoriteSites();
@@ -654,35 +672,50 @@
             isEmergencyMode = enable;
             htmlElement.classList.toggle('emergency-mode', enable);
 
-            siteNameInput.readOnly = false; // Site name is always editable
+            siteNameInput.readOnly = false;
             reportDateInput.readOnly = enable;
             reportTimeInput.readOnly = enable;
             faultDescription.readOnly = enable;
+            notesInput.readOnly = enable;
 
             if (enable) {
                 setDefaultDateTime();
                 siteNameInput.value = translations[localStorage.getItem('appLanguage') || 'ar'].emergencySiteName;
                 faultDescription.value = translations[localStorage.getItem('appLanguage') || 'ar'].emergencyDescription;
+                notesInput.value = '';
                 favoriteSitesContainer.style.display = 'none';
+                otherFaultTypeContainer.classList.add('hidden');
             } else {
                 reportDateInput.value = '';
                 reportTimeInput.value = '';
                 siteNameInput.value = '';
                 faultDescription.value = '';
+                notesInput.value = '';
                 setDefaultDateTime();
                 favoriteSitesContainer.style.display = 'flex';
+                otherFaultTypeContainer.classList.add('hidden'); // Hide on normal mode
             }
-            siteNameInput.required = true; // Site name is always required
-            reportDateInput.required = !enable; // Required only in normal mode
-            reportTimeInput.required = !enable; // Required only in normal mode
+            siteNameInput.required = true;
+            reportDateInput.required = !enable;
+            reportTimeInput.required = !enable;
             faultDescription.required = false; 
+            notesInput.required = false;
         }
 
         faultTypeSelect.addEventListener('change', (event) => {
-            if (event.target.value === 'emergency') {
+            const selectedFault = event.target.value;
+            
+            toggleEmergencyMode(false);
+            
+            if (selectedFault === 'emergency') {
                 toggleEmergencyMode(true);
+            } else if (selectedFault === 'other') {
+                otherFaultTypeContainer.classList.remove('hidden');
+                otherFaultTypeInput.required = true;
+                otherFaultTypeInput.focus();
             } else {
-                toggleEmergencyMode(false);
+                otherFaultTypeContainer.classList.add('hidden');
+                otherFaultTypeInput.required = false;
             }
         });
 
@@ -699,10 +732,10 @@
                 reader.onload = (e) => {
                     imagePreview.src = e.target.result;
                     imagePreviewContainer.classList.remove('hidden');
-                    capturedImageData = e.target.result; // For local preview
+                    capturedImageData = e.target.result;
                 };
                 reader.readAsDataURL(file);
-                capturedFile = file; // Store the raw file for upload to Cloud Storage
+                capturedFile = file;
             } else {
                 imagePreview.src = '';
                 imagePreviewContainer.classList.add('hidden');
@@ -715,28 +748,35 @@
             imagePreview.src = '';
             imagePreviewContainer.classList.add('hidden');
             capturedImageData = null;
-            capturedFile = null; // Clear the raw file
+            capturedFile = null;
             imageUpload.value = '';
             imageUpload.setAttribute('accept', 'image/*,video/*');
             showMessage('msgImageCleared', 'success');
         });
 
-        submitReportBtn.addEventListener('click', async () => { // Made async to handle promises
+        submitReportBtn.addEventListener('click', async () => {
+            let faultType = faultTypeSelect.value;
             const siteName = siteNameInput.value.trim();
             const reportDate = reportDateInput.value;
             const reportTime = reportTimeInput.value;
-            const faultType = faultTypeSelect.value;
             const description = faultDescription.value.trim();
+            const notes = notesInput.value.trim();
 
             if (!faultType) {
-                showMessage('msgSelectFaultType', 'error'); // Updated message key
+                showMessage('msgSelectFaultType', 'error');
                 return;
             }
 
-            // Validation logic based on emergency mode
+            if (faultType === 'other') {
+                const otherFaultValue = otherFaultTypeInput.value.trim();
+                if (!otherFaultValue) {
+                    showMessage('msgEnterOtherFaultType', 'error');
+                    return;
+                }
+                faultType = otherFaultValue;
+            }
+
             if (isEmergencyMode) {
-                // In emergency mode: siteName is editable, date/time/description are auto-filled.
-                // Only need to ensure siteName is not empty and either file or description is present.
                 if (!siteName) {
                     showMessage('msgEnterSiteName', 'error');
                     return;
@@ -746,7 +786,6 @@
                     return;
                 }
             } else {
-                // In normal mode: all fields must be filled by user.
                 if (!siteName) {
                     showMessage('msgEnterSiteName', 'error');
                     return;
@@ -774,52 +813,48 @@
             `;
             document.body.appendChild(confirmBox);
 
-            document.getElementById('confirmYes').addEventListener('click', async () => { // Made async
-                confirmBox.remove(); // Remove confirmation box immediately
-
-                showMessage('???? ????? ??????...', 'info'); // Loading message
+            document.getElementById('confirmYes').addEventListener('click', async () => {
+                confirmBox.remove();
+                showMessage('جاري إرسال البلاغ...', 'info');
 
                 let fileUrl = null;
                 if (capturedFile) {
                     try {
-                        // Create a storage reference
                         const storageRef = ref(storage, `fault_media/${Date.now()}_${capturedFile.name}`);
-                        // Upload the file
                         const uploadTask = await uploadBytes(storageRef, capturedFile);
-                        // Get the download URL
                         fileUrl = await getDownloadURL(uploadTask.ref);
-                        showMessage('?? ??? ????? ?????.', 'success');
+                        showMessage('تم رفع الملف بنجاح.', 'success');
                     } catch (error) {
                         console.error("Error uploading file:", error);
-                        showMessage('??? ??? ?????: ' + error.message, 'error');
-                        return; // Stop if file upload fails
+                        showMessage('فشل رفع الملف: ' + error.message, 'error');
+                        return;
                     }
                 }
 
                 try {
-                    // Add site to favorites only if not in emergency mode
                     if (!isEmergencyMode) {
                         addSiteToFavorites(siteName);
                     }
 
-                    // Save report data to Firestore
                     await addDoc(collection(db, "reports"), {
                         siteName: siteName,
                         faultType: faultType,
                         reportDate: reportDate,
                         reportTime: reportTime,
-                        fileUrl: fileUrl, // Save the URL of the uploaded file
+                        fileUrl: fileUrl,
                         description: description,
-                        timestamp: serverTimestamp(), // Add server timestamp
-                        status: 'pending' // Default status
+                        notes: notes,
+                        timestamp: serverTimestamp(),
+                        status: 'pending'
                     });
 
                     showMessage('msgReportSent', 'success');
 
-                    // Clear form after successful submission
                     siteNameInput.value = '';
+                    otherFaultTypeInput.value = '';
                     faultTypeSelect.value = '';
                     faultDescription.value = '';
+                    notesInput.value = '';
                     imagePreview.src = '';
                     imagePreviewContainer.classList.add('hidden');
                     capturedImageData = null;
@@ -829,9 +864,10 @@
                     setDefaultDateTime();
                     toggleEmergencyMode(false);
 
+                    otherFaultTypeContainer.classList.add('hidden');
                 } catch (error) {
                     console.error("Error adding document to Firestore:", error);
-                    showMessage('??? ????? ??????: ' + error.message, 'error');
+                    showMessage('فشل إرسال البلاغ: ' + error.message, 'error');
                 }
             });
 
